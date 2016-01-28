@@ -8,6 +8,7 @@
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:300,400' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Raleway:300,400' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo:700,400' rel='stylesheet' type='text/css'>
 <title>Els Beauty Cashier Website</title>
 <!--[if lt IE 9]>
 	<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
@@ -15,8 +16,25 @@
 <![endif]-->
 <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 <script>
 	$(document).ready(function() {
+		// Change the selector if needed
+
+		// Get the tbody columns width array
+		
+		$('.list-table').each(function() {
+			var width = $(this).closest('div').map(function() {
+			    return $(this).width();
+			}).get();
+			$(this).find('thead tr').children().each(function(i, v) {
+			    $(v).width(colWidth[i]);
+			}); 
+		});
+		
+
+		// Set the width of thead columns
+		
 		$("#button-collapse").click(function() {
 			$("#left-navbar").slideToggle("fast");
 		});
@@ -25,6 +43,125 @@
 				$("#left-navbar").show();
 			else
 				$("#left-navbar").hide();				
+		});
+		$('.button-tab').click(function() {
+			$('.tab-menu .active').each(function() {
+				$(this).removeClass('active');
+			});
+			$(this).addClass('active');
+		});
+		var chart1 = $("#transaction-chart").get(0).getContext("2d");
+		var chart2 = $("#return-chart").get(0).getContext("2d");
+		var chart3 = $("#omzet-chart").get(0).getContext("2d");
+		var chart4 = $("#profit-chart").get(0).getContext("2d");
+		var data1 = {
+			    labels: ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"],
+			    datasets: [
+			        
+			        {
+			            label: "Kemarin",
+			            fillColor: "rgba(158,213,76,0.7)",
+			            highlightFill: "rgba(158,213,76,1)",
+			            data: [2, 17, 23, 11, 7, 11, 14, 8]
+			        },
+			        {
+			            label: "Hari Ini",
+			            fillColor: "rgba(89,168,15,0.7)",
+			            highlightFill: "rgba(89,168,15,1)",
+			            data: [20, 5, 8, 12, 15, 19, 20, 5]
+			        }
+			    ]
+			};
+		var data2 = {
+			    labels: ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"],
+			    datasets: [
+			        {
+			            label: "Kemarin",
+			            fillColor: "rgba(248,135,46,0.7)",
+			            highlightFill: "rgba(248,135,46,1)",
+			            data: [0, 0, 0, 1, 0, 0, 1, 0]
+			        },
+			        {
+			            label: "Hari Ini",
+			            fillColor: "rgba(252,88,12,0.7)",
+			            highlightFill: "rgba(252,88,12,1)",
+			            data: [0, 2, 0, 0, 0, 1, 0, 0]
+			        }			        
+			    ]
+			};
+		var data3 = {
+			    labels: ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"],
+			    datasets: [
+			        
+			        {
+			            label: "Kemarin",
+			            fillColor: "rgba(255,255,255,0)",
+			            strokeColor: "#A7DBD8",
+			            pointStrokeColor: "#A7DBD8",
+			            pointFillColor: "#A7DBD8",
+			            pointHighlightStroke: "#fff",
+			            pointHighlightFill: "#A7DBD8",
+			            data: [625000, 662000, 385000, 221000, 579000, 235000, 691000, 672000]
+			        },
+			        {
+			            label: "Hari Ini",
+			            fillColor: "rgba(255,255,255,0)",
+			            strokeColor: "#69D2E7",
+			            pointStrokeColor: "#69D2E7",
+			            pointFillColor: "#69D2E7",
+			            pointHighlightStroke: "#fff",
+			            pointHighlightFill: "#69D2E7",
+			            data: [500000, 825000, 330000, 414000, 890000, 142000, 775000, 482000]
+			        }
+			    ]
+			};
+		var data4 = {
+			    labels: ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"],
+			    datasets: [
+			        {
+			            label: "Kemarin",
+			            fillColor: "rgba(255,255,255,0)",
+			            strokeColor: "#FC9D9A",
+			            pointStrokeColor: "#FC9D9A",
+			            pointFillColor: "#FC9D9A",
+			            pointHighlightStroke: "#fff",
+			            pointHighlightFill: "#FC9D9A",
+			            data: [12000, 78000, 282000, 312000, 12800, 91000, 44200, 128000]
+			        },
+			        {
+			            label: "Hari Ini",
+			            fillColor: "rgba(255,255,255,0)",
+			            strokeColor: "#FE4365",
+			            pointStrokeColor: "#FE4365",
+			            pointFillColor: "#FE4365",
+			            pointHighlightStroke: "#fff",
+			            pointHighlightFill: "#FE4365",
+			            data: [25000, 130000, 78000, 48000, 211000, 82000, 121000, 266000]
+			        }
+			        
+			    ]
+			};
+		var ch1 = new Chart(chart1).Bar(data1, {
+			responsive: true,
+			maintainAspectRatio: true,
+			multiTooltipTemplate: "<%= value %> (<%= datasetLabel %>)"
+		});
+		var ch2 = new Chart(chart2).Bar(data2, {
+			responsive: true,
+			maintainAspectRatio: true,
+			multiTooltipTemplate: "<%= value %> (<%= datasetLabel %>)"
+		});
+		var ch3 = new Chart(chart3).Line(data3, {
+			responsive: true,
+			maintainAspectRatio: true,
+			bezierCurve: false,
+			multiTooltipTemplate: "<%= value %> (<%= datasetLabel %>)"
+		});
+		var ch4 = new Chart(chart4).Line(data4, {
+			responsive: true,
+			maintainAspectRatio: true,
+			bezierCurve: false,
+			multiTooltipTemplate: "<%= value %> (<%= datasetLabel %>)"
 		});
 	});
 </script>
@@ -43,7 +180,18 @@
 		<nav>
 			<ul class="navbar-menu">
 				<li>
-					<div class="navbar-icon selected">
+					<div class="navbar-icon">
+						<a class="active" href="#">
+							<span>
+								<i class="fa fa-2x fa-home"></i>
+								<br/>
+								<small>DEPAN</small>
+							</span>
+						</a>
+					</div>
+				</li>
+				<li>
+					<div class="navbar-icon">
 						<a href="#">
 							<span>
 								<i class="fa fa-2x fa-calculator"></i>
@@ -89,6 +237,82 @@
 			</ul>
 		</nav>
 	</div>
+	
+	<div id="content-wrapper">
+		<div id="content">
+			<div id="content-head">
+				<h2>Dashboard</h2>
+				<ul class="nav-tab" id="time-nav">
+					<li class="tab-menu"><button class="button-tab active">Harian</button></li>
+					<li class="tab-menu"><button class="button-tab">Mingguan</button></li>
+					<li class="tab-menu"><button class="button-tab">Bulanan</button></li>
+					<li class="tab-menu"><button class="button-tab">Tahunan</button></li>
+				</ul>
+				<span class="nav-select" id="time-select">
+					<select  id="time-option">
+						<option value="Harian">Harian</option>
+						<option value="Mingguan">Mingguan</option>
+						<option value="Bulanan">Bulanan</option>
+						<option value="Tahunan">Tahunan</option>
+					</select>
+				</span>
+			</div>
+			<hr/>
+			<div id="content-main">
+				<div id="sale-summary">
+					<div class="summary-item">
+						<div class="summary-text summary-title">PEMBELIAN</div>
+						<div class="summary-text summary-value" id="transaction-value">40</div>
+						<div class="summary-text summary-compare up">
+							<i class="fa fa-chevron-circle-up"></i>
+							<label id="transaction-compare">Naik 2 dari kemarin</label>
+						</div>
+						<hr/>
+						<canvas id="transaction-chart" class="main-chart"></canvas>
+					</div>
+					<div class="summary-item summary-inverse">
+						<div class="summary-text summary-title">PENGEMBALIAN</div>
+						<div class="summary-text summary-value" id="return-value">3</div>
+						<div class="summary-text summary-compare up">
+							<i class="fa fa-chevron-circle-up"></i>
+							<label id="return-compare">Naik 1 dari kemarin</label>
+						</div>
+						<hr/>
+						<canvas id="return-chart" class="main-chart"></canvas>
+					</div>
+					<div class="summary-item">
+						<div class="summary-text summary-title">OMSET</div>
+						<div class="summary-text summary-value" id="omzet-value">Rp 8.250.000,00</div>
+						<div class="summary-text summary-compare down">
+							<i class="fa fa-chevron-circle-down"></i>
+							<label id="omzet-compare">Turun Rp 15.000.000,00 dari kemarin</label>
+						</div>
+						<hr/>
+						<canvas id="omzet-chart" class="main-chart"></canvas>
+					</div>
+					<div class="summary-item">
+						<div class="summary-text summary-title">KEUNTUNGAN</div>
+						<div class="summary-text summary-value" id="profit-value">Rp 1.800.000,00</div>
+						<div class="summary-text summary-compare same">
+							<i class="fa fa-minus-circle"></i>
+							<label id="profit-compare">Tetap dari kemarin</label>
+						</div>
+						<hr/>
+						<canvas id="profit-chart" class="main-chart"></canvas>
+					</div>
+				</div>
+			</div>
+			<hr/>
+			<div id="content-foot">
+				<p>
+				Copyright &copy; 2016 <a
+					href="https://www.facebook.com/theodorus.yoga" target="_blank">T&S
+					Design and Program Team</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	
 </div>
 
 </body>
