@@ -44,7 +44,7 @@ p, label, td, th
 
 #header {
 	height: 40px;
-	background-color: #E5E5E5;
+	background-color: transparent;
 	padding: 5px 25px;
 	color: #555555;
 	position: fixed;
