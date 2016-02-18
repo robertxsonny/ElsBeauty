@@ -40,24 +40,28 @@ p, label, td, th
 #wrapper {
 	height: 100%;
 	position: relative;
+	display: inline-block;
 }
 
 #header {
 	height: 40px;
 	background-color: transparent;
-	padding: 5px 25px;
+	padding: 10px 25px;
 	color: #555555;
 	position: fixed;
 	width: 100%;
 	z-index: 2;
-	box-shadow: 0 0 10px #3c3c3c;
+	/* box-shadow: 0 0 10px #3c3c3c; */
+	max-width: 8%;
+	border-bottom: white solid 1px;
+	
 }
 
 #left-navbar {
 	margin: 0 auto;
 	height: 100%;
 	float: left;
-	width: 100px;
+	width: 12%;
 	background-color: #555555;
 	position: fixed;
 }
@@ -98,17 +102,18 @@ p, label, td, th
 	line-height: 40px;
 	font-family: 'Josefin Sans', sans-serif;
 	font-weight: 500;
+	color: white;
 }
 
 #content-wrapper {
 	margin: 0 auto;
-	padding-top: 50px;
-	padding-left: 100px;
+	padding-top: 1%;
+	padding-left: 8%;
 	width: auto;
 }
 
 #content {
-	padding: 20px;
+	padding-left: 6%;
 	overflow-y: auto;
 }
 
