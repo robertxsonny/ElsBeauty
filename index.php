@@ -9,7 +9,7 @@
 <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:300,400' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Raleway:300,400' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Arimo:700,400' rel='stylesheet' type='text/css'>
-<title>Els Beauty Cashier Website</title>
+<title>ElsBeauty Inventory System</title>
 <!--[if lt IE 9]>
 	<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
