@@ -14,7 +14,7 @@
 <body>
 	<div class="main">
 		<div class="title">
-			<p>ElsBeauty</p>
+			
 		</div>
 		<div class="loginbox">
 			<p>Login to Inventory System</p>
