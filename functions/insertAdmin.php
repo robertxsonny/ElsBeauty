@@ -23,10 +23,10 @@ if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['code'
 				$class->username = $username;
 				$class->password = $password;
 				$class->name = $name;
-				$class->status = 1;
+				$class->status = 0;
 			}
 			else{
-				$class->status = 0;
+				$class->status = 1;
 				$class->desc = 'Unknown error while inserting new admin.';
 			}
 			$json = json_encode($class);
