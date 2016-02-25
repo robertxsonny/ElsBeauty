@@ -21,7 +21,7 @@
 <script src="/js/jquery-2.2.1.min.js"></script>
 <script src="/js/jquery-ui.js"></script>
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+	src="/js/Chart.min.js"></script>
 <script src="/js/index.js" type="text/javascript"></script>
 </head>
 <body>
@@ -86,7 +86,7 @@
 					<h2>Dashboard</h2>
 					<div class="status">
 						Halo,
-						<strong>Rizal</strong>!
+						<strong id="loggedinuser"></strong>!
 						Bukan kamu? <a id="logout" href="#logout">Keluar</a>
 					</div>
 					<ul class="nav-tab" id="time-nav">
