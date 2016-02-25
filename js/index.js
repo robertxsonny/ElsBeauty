@@ -2,9 +2,26 @@ var url = 'https://elsbeauty.com';
 
 $(document).ready(
 		function() {
+			$('#cashier').hide();
+			$('#home').hide('slide', {
+				direction : 'left'
+			}, 100);
 			// check login
 			checkLogin();
 
+			$('.navbar-icon a').click(function() {
+				var href = $(this).attr('href');
+				$('.navbar-icon a').removeClass('active');
+				$(this).addClass('active');
+				$('.content-main').hide('slide', {
+					direction : 'left'
+				}, 500);
+				window.setTimeout(function() {
+					$(href).show('slide', {
+						direction : 'right'
+					}, 500);
+				}, 500);
+			});
 			// Change the selector if needed
 
 			// Get the tbody columns width array
@@ -151,6 +168,29 @@ $(document).ready(
 				multiTooltipTemplate : "<%= value %> (<%= datasetLabel %>)"
 			});
 
+			$('#logout').click(
+					function() {
+						var xmlhr = new XMLHttpRequest();
+						xmlhr.open('POST', url
+								+ "/functions/logout.php", true);
+						xmlhr.onload = function(e) {
+							if (xmlhr.readyState == 4) {
+								if (xmlhr.status == 200) {
+									if(xmlhr.responseText == '1'){
+										window.location.reload();
+									}
+								}
+							}
+						}
+						xmlhr.onerror = function(e) {
+							window.location.href = url;
+						}
+						var data = new FormData();
+						data.append('code',
+								'866e62bb-5745-4842-a02f-bdfd68132378');
+						xmlhr.send(data);
+					});
+
 		});
 
 function checkLogin() {
@@ -162,13 +202,15 @@ function checkLogin() {
 				var obj = JSON.parse(xmlhr.responseText);
 				if (obj.status != 0) {
 					window.location.href = url + '/login.php';
-				}
-				else {
+				} else {
+					$('#home').show('slide', {
+						direction : 'right'
+					}, 500);
 				}
 			}
 		}
 	}
-	xmlhr.onerror = function(e){
+	xmlhr.onerror = function(e) {
 		window.location.href = url + '/login.php';
 	}
 	var data = new FormData();

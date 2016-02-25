@@ -1,30 +1,28 @@
 @CHARSET "ISO-8859-1";
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
-    display: block;
+
+article, aside, details, figcaption, figure, footer, header, hgroup,
+	menu, nav, section {
+	display: block;
 }
 
 html {
 	height: 100%;
 }
 
-body
-{
+body {
 	margin: 0;
 	height: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 
-{
+h1, h2, h3, h4, h5, h6 {
 	font-family: 'Raleway', sans-serif;
 }
 
-p, label, td, th
-{
+p, label, td, th {
 	font-family: 'Arimo', sans-serif;
 }
 
-#button-collapse 
-{
+#button-collapse {
 	display: none;
 	background-color: #E5E5E5;
 	border: none;
@@ -44,17 +42,16 @@ p, label, td, th
 }
 
 #header {
-	height: 40px;
+	height: 58px;
 	background-color: transparent;
-	padding: 10px 25px;
+	padding: 10px 0px;
 	color: #555555;
 	position: fixed;
 	width: 100%;
 	z-index: 2;
 	/* box-shadow: 0 0 10px #3c3c3c; */
-	max-width: 8%;
+	max-width: 150px;
 	border-bottom: white solid 1px;
-	
 }
 
 #left-navbar {
@@ -75,7 +72,7 @@ p, label, td, th
 	margin: 0;
 	list-style-type: none;
 	display: block;
-	padding: 15px;
+	padding: 40px;
 	font-family: 'Raleway', sans-serif;
 }
 
@@ -103,6 +100,11 @@ p, label, td, th
 	font-family: 'Josefin Sans', sans-serif;
 	font-weight: 500;
 	color: white;
+	background-image: url("/images/els_logo_white.png");
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	width: 150px;
+	height: 60px;
 }
 
 #content-wrapper {
@@ -117,16 +119,37 @@ p, label, td, th
 	overflow-y: auto;
 }
 
+#content .status {
+	display: inline-block;
+	vertical-align: -webkit-baseline-middle;
+	right: 0px;
+	position: relative;
+	left: 360px;
+	/* float: right; */
+	top: 8px;
+	/* width: 100%; */
+	font-family: 'Raleway', sans-serif;
+	font-size: 14px;
+}
+
+#content .status a{
+	color: #000000;
+}
+
 #content h2 {
 	font-family: 'Raleway', sans-serif;
 	margin: auto;
 	display: inline-block;
 	float: left;
 	vertical-align: middle;
+	font-size: 30px;
 }
 
 #content-head {
 	height: 40px;
+	border-bottom: grey 1px solid;
+	padding-bottom: 13px;
+	padding-top: 13px;
 }
 
 .nav-tab {
@@ -184,30 +207,25 @@ p, label, td, th
 	outline: none;
 }
 
-#time-select
-{
+#time-select {
 	display: none;
 }
 
-#content-main
-{
+.content-main {
 	padding: 20px 0;
 }
 
-.content-left 
-{
+.content-left {
 	max-width: 250px;
 	float: left;
 }
 
-#sale-summary 
-{
+#sale-summary {
 	padding: -20px 0;
 	width: 100%;
 }
 
-.summary-item
-{
+.summary-item {
 	padding: 20px 0;
 	width: 49.5%;
 	display: inline-block;
@@ -310,25 +328,27 @@ p, label, td, th
 	padding-left: 5px;
 	color: white;
 	height: 30px;
-	background-color: rgba(255,255,255,0);
+	background-color: rgba(255, 255, 255, 0);
 	border: none;
 	border-right: 1px solid white;
 	outline: none;
 }
 
-  #search-container input:-moz-placeholder {
-    color: #E5E5E5;
-  }
-  #search-container input:-ms-input-placeholder {
-    color: #E5E5E5;
-  }
-  #search-container input::-webkit-input-placeholder {
-    color: #E5E5E5;
-  }
+#search-container input:-moz-placeholder {
+	color: #E5E5E5;
+}
+
+#search-container input:-ms-input-placeholder {
+	color: #E5E5E5;
+}
+
+#search-container input::-webkit-input-placeholder {
+	color: #E5E5E5;
+}
 
 #search-group button {
 	height: 30px;
-	background-color: rgba(255,255,255,0);
+	background-color: rgba(255, 255, 255, 0);
 	border: none;
 	color: white;
 	cursor: pointer
@@ -348,7 +368,7 @@ p, label, td, th
 
 .list-table {
 	border-collapse: collapse;
-	width: 100%;	
+	width: 100%;
 	overflow: auto;
 	font-size: 92%;
 }
@@ -357,52 +377,45 @@ p, label, td, th
 	width: 100%;
 }
 
-.list-table td, .list-table th
-{
+.list-table td, .list-table th {
 	border: none;
 	border-bottom: 1px solid #E2E4E5;
 	padding: 2px !important;
 	background-color: white;
 }
 
-#item-header 
-{
+#item-header {
 	height: 45px;
 	margin: 0;
 	color: white;
 }
 
-#item-header th
-{
+#item-header th {
 	background-color: #00C176;
 	border: none;
 }
 
-#item-footer
-{
+#item-footer {
 	position: relative;
 	bottom: 0;
 	height: 75px;
 	color: white;
 }
 
-#item-footer th
-{
+#item-footer th {
 	background-color: #FF8A00;
 	border: none;
 	padding: 2px !important;
 }
 
-#total-price
-{
+#total-price {
 	font-family: 'Raleway', sans-serif;
 	font-size: 200%;
 	margin: 0;
 	padding: 0;
 }
 
-.item-qty
-{
+.item-qty {
 	width: 100%;
 	background-color: white;
 	border: none;
@@ -410,8 +423,7 @@ p, label, td, th
 	text-align: center;
 }
 
-.add-button, .remove-button, .save-button, .reset-button
-{
+.add-button, .remove-button, .save-button, .reset-button {
 	text-align: center;
 	background-color: white;
 	height: 40px;
@@ -419,54 +431,40 @@ p, label, td, th
 	border-radius: 2px;
 }
 
-.add-button
-{
+.add-button {
 	color: #008DC7;
 	border: 1px solid #008DC7;
 }
 
-.remove-button
-{
+.remove-button {
 	color: #F63700;
 	border: 1px solid #F63700;
 }
 
-.save-button, .reset-button
-{
+.save-button, .reset-button {
 	color: #FF8A00;
 	border: none;
 }
 
-@media screen and (max-width: 768px)
-{
-	#button-collapse 
-	{
+@media screen and (max-width: 768px) {
+	#button-collapse {
 		display: block;
 	}
-	
-	#time-select
-	{
+	#time-select {
 		display: inline-block;
 	}
-	
-	#time-nav
-	{
+	#time-nav {
 		display: none;
 	}
-	
 	#left-navbar {
 		display: none;
 	}
-	
 	#content-wrapper {
 		padding-left: 0px;
 	}
-	
-	.summary-item
-	{
+	.summary-item {
 		width: 99.8%;
 	}
-	
 	#header {
 		padding: 5px 15px;
 	}

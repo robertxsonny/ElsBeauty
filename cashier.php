@@ -3,7 +3,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="style.css" rel='stylesheet' type='text/css'>
+<link href="/css/style.css" rel='stylesheet' type='text/css'>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:300,400' rel='stylesheet' type='text/css'>
@@ -14,8 +14,8 @@
 	<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-<script src="https://code.jquery.com/jquery-2.1.3.js"></script>
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="/js/jquery-2.2.1.min.js"></script>
+<script src="/js/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 <script>
 	$(document).ready(function() {
@@ -322,8 +322,7 @@
 			<div id="content-foot">
 				<p>
 				Copyright &copy; 2016 <a
-					href="https://www.facebook.com/theodorus.yoga" target="_blank">T&S
-					Design and Program Team</a>
+					href="http://tampilin.id" target="_blank">Tampilin.id: One Stop Online Services</a>
 				</p>
 			</div>
 		</div>
