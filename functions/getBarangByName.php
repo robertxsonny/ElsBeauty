@@ -3,13 +3,14 @@ $root = $_SERVER ['DOCUMENT_ROOT'];
 $dbconn = $root . '/functions/dbConnection.php';
 include ($dbconn);
 
-if (isset ( $_POST ['code'] )) {
+if (isset ( $_POST ['code'] ) && isset($_POST['keyword'])) {
 	$code = $_POST ['code'];
 	if ($code === '866e62bb-5745-4842-a02f-bdfd68132378') {
+		$keyword = $_POST['keyword'];
 		$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
 		if ($conn->connect_error)
 			die ( 'Error establishing connection to the database server! Error: ' . $conn->connect_error );
-		$query = "SELECT `id`, `namabarang`, `description`, `stok`, `hargabeli`, `hargajual`, `iduser`, `username`, `name` FROM `eb_barang_with_users`";
+		$query = "SELECT `id`, `namabarang`, `description`, `stok`, `hargabeli`, `hargajual`, `iduser`, `username`, `name` FROM `eb_barang_with_users` WHERE `namabarang` LIKE '%" . $keyword ."%'";
 		$res = $conn->query ( $query );
 		$ret = array ();
 		if ($res->num_rows > 0) {

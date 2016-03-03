@@ -20,12 +20,18 @@
 <![endif]-->
 <script src="/js/jquery-2.2.1.min.js"></script>
 <script src="/js/jquery-ui.js"></script>
-<script
-	src="/js/Chart.min.js"></script>
+<script src="/js/Chart.min.js"></script>
+<script src="/js/money.js"></script>
 <script src="/js/index.js" type="text/javascript"></script>
 </head>
 <body>
-
+	<div class="loading">
+		<div class="overlay"></div>
+		<div class="box">
+			<div class="progress"></div>
+			<div class="text">Memuat...</div>
+		</div>
+	</div>
 	<div id="wrapper">
 		<header id="header">
 			<button type="button" id="button-collapse" class="navbar-toggle"
@@ -40,16 +46,16 @@
 				<ul class="navbar-menu">
 					<li>
 						<div class="navbar-icon">
-							<a class="active" href="#home"> <span> <i class="fa fa-2x fa-home"></i>
-									<br /> <small>DEPAN</small>
+							<a class="active" href="#home"> <span> <i
+									class="fa fa-2x fa-home"></i> <br /> <small>DEPAN</small>
 							</span>
 							</a>
 						</div>
 					</li>
 					<li>
 						<div class="navbar-icon">
-							<a href="#cashier"> <span> <i class="fa fa-2x fa-calculator"></i> <br />
-									<small>KASIR</small>
+							<a href="#cashier"> <span> <i class="fa fa-2x fa-calculator"></i>
+									<br /> <small>KASIR</small>
 							</span>
 							</a>
 						</div>
@@ -85,9 +91,8 @@
 				<div id="content-head">
 					<h2>Dashboard</h2>
 					<div class="status">
-						Halo,
-						<strong id="loggedinuser"></strong>!
-						Bukan kamu? <a id="logout" href="#logout">Keluar</a>
+						Halo, <strong id="loggedinuser"></strong>! Bukan kamu? <a
+							id="logout" href="#logout">Keluar</a>
 					</div>
 					<ul class="nav-tab" id="time-nav">
 						<li class="tab-menu"><button class="button-tab active">Harian</button></li>
@@ -107,156 +112,15 @@
 					<div id="cashier-left">
 						<div id="search-group">
 							<div id="search-container">
-								<input type="text" placeholder="CARI BARANG" class="input-text"
+								<input type="text" placeholder="CARI BARANG" id="searchtext" class="input-text"
 									name="item-search" />
 							</div>
 							<button class="search-button" id="btn-item-src">
 								<i class="fa fa-search"></i>
 							</button>
 						</div>
-						<div class="item-list">
-							<table id="item-add-list" class="list-table">
-								<colgroup>
-									<col style="width: 10%;" />
-									<col style="width: 60%;" />
-									<col style="width: 20%;" />
-								</colgroup>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>
-									<td>KOSMETIK 1</td>
-									<td>120000</td>
-								</tr>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>
-									<td>KOSMETIK 2</td>
-									<td>96000</td>
-								</tr>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>
-									<td>KOSMETIK 3</td>
-									<td>53000</td>
-								</tr>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>
-									<td>KOSMETIK 1</td>
-									<td>120000</td>
-								</tr>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>	
-									<td>KOSMETIK 2</td>
-									<td>96000</td>
-								</tr>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>
-									<td>KOSMETIK 3</td>
-									<td>53000</td>
-								</tr>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>
-									<td>KOSMETIK 1</td>
-									<td>120000</td>
-								</tr>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>
-									<td>KOSMETIK 2</td>
-									<td>96000</td>
-								</tr>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>
-									<td>KOSMETIK 3</td>
-									<td>53000</td>
-								</tr>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>
-									<td>KOSMETIK 1</td>
-									<td>120000</td>
-								</tr>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>
-									<td>KOSMETIK 2</td>
-									<td>96000</td>
-								</tr>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>
-									<td>KOSMETIK 3</td>
-									<td>53000</td>
-								</tr>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>
-									<td>KOSMETIK 1</td>
-									<td>120000</td>
-								</tr>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>
-									<td>KOSMETIK 2</td>
-									<td>96000</td>
-								</tr>
-								<tr>
-									<td>
-										<button class="add-button" id="btn-item-add">
-											<i class="fa fa-plus"></i>
-										</button>
-									</td>
-									<td>KOSMETIK 3</td>
-									<td>53000</td>
-								</tr>
-							</table>
+						<div id="baranglist" class="item-list">
+						
 						</div>
 					</div>
 					<div id="cashier-right">
@@ -274,47 +138,8 @@
 								<th>&nbsp;</th>
 							</tr>
 						</table>
-						<div class="item-list">
-							<table id="item-buy-list" class="list-table">
-								<colgroup>
-									<col style="width: 15%" />
-									<col style="width: 50%" />
-									<col style="width: 30%" />
-									<col style="width: 5%" />
-								</colgroup>
-								<tr>
-									<td><input type="number" class="item-qty" value="1" /></td>
-									<td>KOSMETIK 1<br /> <small>@ 120000</small>
-									</td>
-									<td>120000</td>
-									<td>
-										<button class="remove-button" id="btn-item-remove">
-											<i class="fa fa-times"></i>
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="number" class="item-qty" value="2" /></td>
-									<td>KOSMETIK 2 <br /> <small>@ 96000</small>
-									</td>
-									<td>192000</td>
-									<td>
-										<button class="remove-button" id="btn-item-remove">
-											<i class="fa fa-times"></i>
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="number" class="item-qty" value="1" /></td>
-									<td>KOSMETIK 3<br /> <small>@ 53000</small></td>
-									<td>53000</td>
-									<td>
-										<button class="remove-button" id="btn-item-remove">
-											<i class="fa fa-times"></i>
-										</button>
-									</td>
-								</tr>
-							</table>
+						<div id="orderlist" class="item-list">
+							<!-- order table here -->
 						</div>
 						<table id="item-footer" class="list-table">
 							<colgroup>
@@ -332,7 +157,7 @@
 									</button>
 								</th>
 								<th colspan="2">TOTAL</th>
-								<th id="total-price">5000000</th>
+								<th id="total-price"></th>
 							</tr>
 						</table>
 					</div>

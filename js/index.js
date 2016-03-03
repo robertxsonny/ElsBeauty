@@ -1,6 +1,5 @@
 var url = 'https://elsbeauty.com';
 
-
 $(document).ready(function() {
 	$('#cashier').hide('slide', {
 		direction : 'left'
@@ -8,6 +7,7 @@ $(document).ready(function() {
 	$('#home').hide('slide', {
 		direction : 'left'
 	}, 100);
+	$('.loading').hide();
 	// check login
 	checkLogin();
 
@@ -18,10 +18,18 @@ $(document).ready(function() {
 		$('.content-main').hide('slide', {
 			direction : 'left'
 		}, 500);
+		$('.loading').fadeIn('slow');
 		window.setTimeout(function() {
 			$(href).show('slide', {
 				direction : 'right'
 			}, 500);
+
+			// preloading items
+			if (href == '#cashier') {
+				getBarangByName();
+				refreshPenjualan();
+			}
+
 		}, 500);
 	});
 
@@ -219,4 +227,151 @@ function checkLogin() {
 	var data = new FormData();
 	data.append('code', '866e62bb-5745-4842-a02f-bdfd68132378');
 	xmlhr.send(data);
+}
+
+function getBarangByName() {
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', url + '/functions/getBarangByName.php');
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				var barangs = JSON.parse(xmlhr.responseText);
+				var html = '<table id="item-add-list" class="list-table">';
+				html += '<colgroup><col style="width: 10%;" /><col style="width: 60%;" /><col style="width: 20%;" /></colgroup>';
+
+				for (var i = 0; i < barangs.length; i++) {
+					html += '<tr>';
+					html += "<td><button class=\"add-button\" id=\"btn-item-add\" onclick=\"addItem("
+							+ barangs[i].id
+							+ ", '"
+							+ barangs[i].namabarang
+							+ "', "
+							+ barangs[i].hargajual
+							+ ", "
+							+ barangs[i].hargabeli
+							+ ", 'add')\"><i class=\"fa fa-plus\"></i></button></td>";
+					html += '<td>' + barangs[i].namabarang + '</td>';
+					html += '<td>'
+							+ barangs[i].hargajual.formatMoney(2, ',', '.')
+							+ '</td>';
+					html += '</tr>';
+				}
+				html += '</table>';
+				$('#baranglist').html(html);
+				$('.loading').slideToggle('fast');
+			}
+		}
+	};
+	xmlhr.onerror = function(e) {
+		$('.loading').show();
+		$('.loading .progress').hide();
+		$('.loading .text').html('Terjadi kesalahan saat memuat barang!');
+		window.setTimeout(function() {
+			$('.loading').fadeOut('slow');
+		}, 2000);
+	}
+	var data = new FormData();
+	data.append('code', '866e62bb-5745-4842-a02f-bdfd68132378');
+	data.append('keyword', $('#searchtext').val());
+	xmlhr.send(data);
+	$('.loading .progress').show();
+	$('.loading').show();
+}
+
+function addItem(id, name, hargajual, hargabeli, movement) {
+	var current = localStorage.getItem('penjualan');
+	var array = [];
+	if (!current) { // if there is no item
+		var obj = {
+			"id" : id,
+			"name" : name,
+			"hargajual" : hargajual,
+			"hargabeli" : hargabeli,
+			"jumlah" : 1
+		};
+		array.push(obj);
+		localStorage.setItem('penjualan', JSON.stringify(array));
+	} else { // if there are items
+		var currentobj = JSON.parse(current);
+		var exists = false;
+		for (var i = 0; i < currentobj.length; i++) {
+			if (currentobj[i].id == id) {
+				if (movement == "add")
+					currentobj[i].jumlah++;
+				else if (movement == "remove")
+					currentobj[i].jumlah--;
+				exists = true;
+				break;
+			}
+		}
+		if (exists === false) {
+			var obj = {
+				"id" : id,
+				"name" : name,
+				"hargajual" : hargajual,
+				"hargabeli" : hargabeli,
+				"jumlah" : 1
+			};
+			currentobj.push(obj);
+		}
+		localStorage.setItem('penjualan', JSON.stringify(currentobj));
+	}
+	refreshPenjualan();
+}
+
+function changeItem(id, input) {
+	var current = localStorage.getItem('penjualan');
+	var currentobj = JSON.parse(current);
+	for (var i = 0; i < currentobj.length; i++) {
+		if (currentobj[i].id == id) {
+			currentobj[i].jumlah = input.value;
+			break;
+		}
+	}
+	localStorage.setItem('penjualan', JSON.stringify(currentobj));
+	refreshPenjualan();
+}
+
+function removeItem(id, name) {
+	if(confirm('Anda yakin akan menghapus item ' + name +'?')){
+		var current = localStorage.getItem('penjualan');
+		var currentobj = JSON.parse(current);
+		for (var i = 0; i < currentobj.length; i++) {
+			if (currentobj[i].id == id) {
+				currentobj.splice(i, 1);
+				break;
+			}
+		}
+		localStorage.setItem('penjualan', JSON.stringify(currentobj));
+		refreshPenjualan();
+	}
+}
+
+function refreshPenjualan() {
+	var current = localStorage.getItem('penjualan');
+	var html = '';
+	html += '<table id="item-buy-list" class="list-table">';
+	html += '<colgroup><col style="width: 15%" /><col style="width: 50%" /><col style="width: 30%" /><col style="width: 5%" /></colgroup>';
+	var total = 0;
+	if (current) {
+		var barangs = JSON.parse(current);
+		for (var i = 0; i < barangs.length; i++) {
+			html += '<tr>';
+			html += "<td><input onchange=\"changeItem(" + barangs[i].id
+					+ ", this)\" type=\"number\" class=\"item-qty\" value=\""
+					+ barangs[i].jumlah + "\" /></td>";
+			html += '<td>' + barangs[i].name + '<br /> <small>@ '
+					+ barangs[i].hargajual.formatMoney(2, ',', '.')
+					+ '</small></td>';
+			html += '<td>'
+					+ (barangs[i].jumlah * barangs[i].hargajual).formatMoney(2,
+							',', '.') + '</td>';
+			html += "<td><button onclick=\"removeItem(" + barangs[i].id +",'" + barangs[i].name +"')\" class=\"remove-button\" id=\"btn-item-remove\"><i class=\"fa fa-times\"></i></button></td>";
+			html += '</tr>';
+			total += barangs[i].jumlah * barangs[i].hargajual;
+		}
+	}
+	html += '</table>';
+	$('#total-price').html(total.formatMoney(2, ',', '.'));
+	$('#orderlist').html(html);
 }

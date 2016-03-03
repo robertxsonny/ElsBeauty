@@ -446,6 +446,49 @@ p, label, td, th {
 	border: none;
 }
 
+.loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.loading .overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 1;
+}
+
+.loading .box {
+    width: 30%;
+    height: 30%;
+    margin-top: 17%;
+    margin-left: 35%;
+    background-color: rgba(0,0,0,0.5);
+    text-align: center;
+    z-index: 1;
+    position: absolute;
+}	
+
+.loading .progress {
+    background-image: url("/assets/loading_white.gif");
+    background-repeat: no-repeat;
+    background-size: auto 39%;
+    width: 100%;
+    height: 100px;
+    background-position: center center;
+}
+
+.loading .text {
+    color: white;
+    font-family: 'Raleway', Sertif;
+    font-size: 25px;
+    position: relative;
+    margin-top: 29px;
+}
+
 @media screen and (max-width: 768px) {
 	#button-collapse {
 		display: block;
