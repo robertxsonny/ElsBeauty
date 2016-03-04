@@ -72,7 +72,8 @@ p, label, td, th {
 	margin: 0;
 	list-style-type: none;
 	display: block;
-	padding: 40px;
+	padding-top: 30px;
+	padding-left: 0px;
 	font-family: 'Raleway', sans-serif;
 }
 
@@ -363,7 +364,7 @@ p, label, td, th {
 }
 
 #cashier-right .item-list {
-	height: 365px;
+	height: 314px;
 }
 
 .list-table {
@@ -447,46 +448,103 @@ p, label, td, th {
 }
 
 .loading {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
 }
 
 .loading .overlay {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    background-color: rgba(0,0,0,0.7);
-    z-index: 1;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 1;
 }
 
 .loading .box {
-    width: 30%;
-    height: 30%;
-    margin-top: 17%;
-    margin-left: 35%;
-    background-color: rgba(0,0,0,0.5);
-    text-align: center;
-    z-index: 1;
-    position: absolute;
-}	
+	width: 30%;
+	height: 30%;
+	margin-top: 17%;
+	margin-left: 35%;
+	background-color: rgba(0, 0, 0, 0.5);
+	text-align: center;
+	z-index: 1;
+	position: absolute;
+}
 
 .loading .progress {
-    background-image: url("/assets/loading_white.gif");
-    background-repeat: no-repeat;
-    background-size: auto 39%;
-    width: 100%;
-    height: 100px;
-    background-position: center center;
+	background-image: url("/assets/loading_white.gif");
+	background-repeat: no-repeat;
+	background-size: auto 39%;
+	width: 100%;
+	height: 100px;
+	background-position: center center;
 }
 
 .loading .text {
-    color: white;
-    font-family: 'Raleway', Sertif;
-    font-size: 25px;
-    position: relative;
-    margin-top: 29px;
+	color: white;
+	font-family: 'Raleway', Sertif;
+	font-size: 25px;
+	position: relative;
+	margin-top: 29px;
+}
+
+#item-footer .total th {
+	background-color: #069ded;
+}
+
+#item-footer .payment th {
+	background-color: #aec400;
+	border: none;
+	padding-top: 2px;
+}
+
+#item-footer .payment #total-price input {
+	border: 0;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	height: 119%;
+	width: 100%;
+	position: relative;
+	font-family: 'Raleway', sans-serif;
+	font-size: 57%;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.7);
+	top: 0px;
+	color: white;
+}
+
+#item-footer .payment #total-price input:HOVER {
+	box-shadow: white 0px 0px 30px;
+}
+
+#item-footer .payment #total-price input:FOCUS {
+	box-shadow: white 0px 0px 30px;
+}
+
+#item-footer .change th {
+	background-color: #8f8f8f;
+}
+
+.warninginternet .nosignalicon {
+	background-image: url("/assets/nointernet.png");
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 20px;
+	margin-bottom: 5px;
+	background-position: center center;
+}
+
+.warninginternet .signalicon {
+	background-image: url("/assets/connection.png");
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 20px;
+	margin-bottom: 5px;
+	background-position: center center;
 }
 
 @media screen and (max-width: 768px) {

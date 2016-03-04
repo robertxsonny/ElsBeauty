@@ -82,6 +82,12 @@
 							</a>
 						</div>
 					</li>
+					<li id="nosignal" class="warninginternet"
+						style="color: white; font-size: 10px; margin-top: 0px;"><div
+							class="nosignalicon" style=""></div>No internet connection</li>
+					<li id="connected" class="warninginternet"
+						style="color: white; font-size: 10px; margin-top: 0px;"><div
+							class="signalicon" style=""></div>Connected</li>
 				</ul>
 			</nav>
 		</div>
@@ -112,16 +118,14 @@
 					<div id="cashier-left">
 						<div id="search-group">
 							<div id="search-container">
-								<input type="text" placeholder="CARI BARANG" id="searchtext" class="input-text"
-									name="item-search" />
+								<input type="text" placeholder="CARI BARANG" id="searchtext"
+									class="input-text" name="item-search" />
 							</div>
 							<button class="search-button" id="btn-item-src">
 								<i class="fa fa-search"></i>
 							</button>
 						</div>
-						<div id="baranglist" class="item-list">
-						
-						</div>
+						<div id="baranglist" class="item-list"></div>
 					</div>
 					<div id="cashier-right">
 						<table id="item-header" class="list-table">
@@ -147,18 +151,31 @@
 								<col style="width: 50%" />
 								<col style="width: 35%" />
 							</colgroup>
-							<tr>
-								<th>
-									<button class="save-button" title="simpan">
-										<i class="fa fa-floppy-o"></i>
-									</button>
-									<button class="reset-button" title="ulangi">
-										<i class="fa fa-repeat"></i>
-									</button>
-								</th>
-								<th colspan="2">TOTAL</th>
-								<th id="total-price"></th>
-							</tr>
+							<tbody>
+								<tr class="total">
+
+									<th colspan="3">TOTAL</th>
+									<th id="total-price">1.100.000,00</th>
+								</tr>
+								<tr class="payment">
+
+									<th colspan="3">PEMBAYARAN</th>
+									<th id="total-price" style="padding-top: 0px;"><input
+										type="text" id="paymentamount"></th>
+								</tr>
+								<tr class="change">
+									<th id="savepayment">
+										<button class="save-button" title="simpan">
+											<i class="fa fa-floppy-o"></i>
+										</button>
+										<button class="reset-button" title="ulangi">
+											<i class="fa fa-repeat"></i>
+										</button>
+									</th>
+									<th colspan="2">KEMBALI</th>
+									<th id="change-amount">0,00</th>
+								</tr>
+							</tbody>
 						</table>
 					</div>
 				</div>

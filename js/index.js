@@ -1,5 +1,5 @@
 var url = 'https://elsbeauty.com';
-
+var isconnected;
 $(document).ready(function() {
 	$('#cashier').hide('slide', {
 		direction : 'left'
@@ -8,8 +8,29 @@ $(document).ready(function() {
 		direction : 'left'
 	}, 100);
 	$('.loading').hide();
+	$('#nosignal').hide();
+	$('#connected').hide();
 	// check login
 	checkLogin();
+	window.setInterval(function() {
+		checkConnection();
+	}, 2000);
+
+	// auto comma
+	$('#paymentamount').on('change', function(e) {
+		// calculate change
+		var totaljson = localStorage.getItem('penjualan');
+		var barangs = JSON.parse(totaljson);
+		var total = 0;
+		for (var i = 0; i < barangs.length; i++) {
+			total += barangs[i].hargajual * barangs[i].jumlah;
+		}
+		var num = Number($(this).val().replace(',', ''));
+		var change = num - total;
+		$('#change-amount').html(change.formatMoney(2, ',', '.'));
+		$('#paymentamount').val(num.formatMoney(2, ',', '.'));
+		$('#payment-amount').prop('disabled', true);
+	});
 
 	$('.navbar-icon a').click(function() {
 		var href = $(this).attr('href');
@@ -26,6 +47,9 @@ $(document).ready(function() {
 
 			// preloading items
 			if (href == '#cashier') {
+				$('#change-amount').html((0).formatMoney(2, ',', '.'));
+				$('paymentamount').val('');
+				$('#payment-amount').prop('disabled', false);
 				getBarangByName();
 				refreshPenjualan();
 			}
@@ -333,7 +357,7 @@ function changeItem(id, input) {
 }
 
 function removeItem(id, name) {
-	if(confirm('Anda yakin akan menghapus item ' + name +'?')){
+	if (confirm('Anda yakin akan menghapus item ' + name + '?')) {
 		var current = localStorage.getItem('penjualan');
 		var currentobj = JSON.parse(current);
 		for (var i = 0; i < currentobj.length; i++) {
@@ -366,7 +390,11 @@ function refreshPenjualan() {
 			html += '<td>'
 					+ (barangs[i].jumlah * barangs[i].hargajual).formatMoney(2,
 							',', '.') + '</td>';
-			html += "<td><button onclick=\"removeItem(" + barangs[i].id +",'" + barangs[i].name +"')\" class=\"remove-button\" id=\"btn-item-remove\"><i class=\"fa fa-times\"></i></button></td>";
+			html += "<td><button onclick=\"removeItem("
+					+ barangs[i].id
+					+ ",'"
+					+ barangs[i].name
+					+ "')\" class=\"remove-button\" id=\"btn-item-remove\"><i class=\"fa fa-times\"></i></button></td>";
 			html += '</tr>';
 			total += barangs[i].jumlah * barangs[i].hargajual;
 		}
@@ -374,4 +402,29 @@ function refreshPenjualan() {
 	html += '</table>';
 	$('#total-price').html(total.formatMoney(2, ',', '.'));
 	$('#orderlist').html(html);
+}
+
+function checkConnection() {
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('GET', 'https://elsbeauty.com');
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				isconnected = true;
+				$('#connected').show();
+				$('#nosignal').hide();
+			} else {
+				isconnected = false;
+				$('#connected').hide();
+				$('#nosignal').show();
+
+			}
+		}
+	};
+	xmlhr.onerror = function(e) {
+		isconnected = false;
+		$('#connected').hide();
+		$('#nosignal').show();
+	}
+	xmlhr.send();
 }
