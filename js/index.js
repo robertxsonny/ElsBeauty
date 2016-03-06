@@ -16,20 +16,38 @@ $(document).ready(function() {
 		checkConnection();
 	}, 2000);
 
-	// auto comma
-	$('#paymentamount').on('change', function(e) {
-		// calculate change
-		var totaljson = localStorage.getItem('penjualan');
-		var barangs = JSON.parse(totaljson);
-		var total = 0;
-		for (var i = 0; i < barangs.length; i++) {
-			total += barangs[i].hargajual * barangs[i].jumlah;
+	$('#searchtext').keypress(function(e){
+		if (e.which == 13) {
+			getBarangByName();
 		}
-		var num = Number($(this).val().replace(',', ''));
-		var change = num - total;
-		$('#change-amount').html(change.formatMoney(2, ',', '.'));
-		$('#paymentamount').val(num.formatMoney(2, ',', '.'));
-		$('#payment-amount').prop('disabled', true);
+	});
+	
+	$('.reset-button').click(function() {
+		if (confirm('Anda yakin akan mengulangi penjualan?')) {
+			localStorage.setItem('penjualan', '');
+			$('#paymentamount').val('');
+			$('#paymentamount').prop('disabled', false);
+			$('#change-amount').html((0).formatMoney(2, ',', '.'));
+			refreshPenjualan();
+		}
+	});
+	// auto comma
+	$('#paymentamount').keypress(function(e) {
+		if (e.which == 13) {
+			// calculate change
+			var totaljson = localStorage.getItem('penjualan');
+			var barangs = JSON.parse(totaljson);
+			var total = 0;
+			for (var i = 0; i < barangs.length; i++) {
+				total += barangs[i].hargajual * barangs[i].jumlah;
+			}
+			var num = Number($(this).val().replace(',', ''));
+			var change = num - total;
+			$('#change-amount').html(change.formatMoney(2, ',', '.'));
+			$('#paymentamount').val(num.formatMoney(2, ',', '.'));
+			$('#paymentamount').prop('disabled', true);
+			addPenjualan();
+		}
 	});
 
 	$('.navbar-icon a').click(function() {
@@ -237,6 +255,7 @@ function checkLogin() {
 				if (obj.status != 0) {
 					window.location.href = url + '/login.php';
 				} else {
+					localStorage.setItem('userid', obj.id);
 					$('#loggedinuser').html(obj.name);
 					$('#home').show('slide', {
 						direction : 'left'
@@ -427,4 +446,47 @@ function checkConnection() {
 		$('#nosignal').show();
 	}
 	xmlhr.send();
+}
+
+function addPenjualan() {
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', url + '/functions/addPenjualan.php');
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				var obj = JSON.parse(xmlhr.responseText);
+				if (obj.status == '0') {
+					alert('Penjualan selesai dilakukan.');
+					localStorage.setItem('penjualan', '');
+					$('#paymentamount').val('');
+					$('#paymentamount').prop('disabled', false);
+					$('#change-amount').html((0).formatMoney(2, ',', '.'));
+					refreshPenjualan();
+				} else {
+					alert(obj.status);
+					alert(obj.desc);
+				}
+			}
+		}
+	};
+	var data = new FormData();
+	data.append('code', '866e62bb-5745-4842-a02f-bdfd68132378');
+	data.append('jsondata', localStorage.getItem('penjualan'));
+	var total = $('#total-price').html();
+	var payment = $('#paymentamount').val();
+	var change = $('#change-amount').html();
+	var totalint = total.replace(',00', '');
+	var paymentint = payment.replace(',00', '');
+	var changeint = change.replace(',00', '');
+	while (totalint.indexOf('.') > 0)
+		totalint = totalint.replace('.', '');
+	while (paymentint.indexOf('.') > 0)
+		paymentint = paymentint.replace('.', '');
+	while (changeint.indexOf('.') > 0)
+		changeint = changeint.replace('.', '');
+	data.append('total', totalint);
+	data.append('payment', paymentint);
+	data.append('change', changeint);
+	data.append('userid', localStorage.getItem('userid'));
+	xmlhr.send(data);
 }

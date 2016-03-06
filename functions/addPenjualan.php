@@ -1,19 +1,22 @@
 <?php
 $root = $_SERVER ['DOCUMENT_ROOT'];
 $dbconn = $root . '/functions/dbConnection.php';
+$updatestock = $root . '/functions/updateStock.php';
 include ($dbconn);
+include ($updatestock);
 
 if (isset ( $_POST ['code'] ) && isset ( $_POST ['jsondata'] ) && isset ( $_POST ['total'] ) && isset ( $_POST ['payment'] ) && isset ( $_POST ['change'] ) &&
 		isset($_POST['userid'])) {
 	$code = $_POST ['code'];
 	if ($code === '866e62bb-5745-4842-a02f-bdfd68132378') {
 		$barangs = json_decode ( $_POST ['jsondata'] );
-		$totalinst = ( int ) $_POST ['total'];
-		$paymentinst = ( int ) $_POST ['payment'];
-		$changeinst = ( int ) $_POST ['change'];
+		$totalinst = ( float ) $_POST ['total'];
+		$paymentinst = ( float ) $_POST ['payment'];
+		$changeinst = ( float ) $_POST ['change'];
+		$userid = $_POST['userid'];
 		$total = 0;
 		for($i = 0; $i < count ( $barangs ); $i ++) {
-			$total += $barangs [$i]->hargajual * $barangs [$i]->jumlah;
+			$total += $barangs [$i]->hargajual * (float) $barangs [$i]->jumlah;
 		}
 		$change = $paymentinst - $total;
 		if ($total === $totalinst && $change === $changeinst) { // calculation validation
@@ -33,10 +36,10 @@ if (isset ( $_POST ['code'] ) && isset ( $_POST ['jsondata'] ) && isset ( $_POST
 					$query2 = "INSERT INTO `eb_penjualan`
 							(`idbarang`, `iduser`, `idpenjualan`, `jumlah`, 
 							`currenthargabeli`, `currenthargajual`, `tanggal`) 
-							VALUES (" . $barangs[$i]->id ."," . $_POST['userid'] ."," . $id ."," . $barangs[$i]->jumlah .",
+							VALUES (" . $barangs[$i]->id ."," . $userid ."," . $id ."," . $barangs[$i]->jumlah .",
 							" . $barangs[$i]->hargabeli ."," . $barangs[$i]->hargajual .",'" . $date . "')";
 					$res2 = $conn->query($query2);
-					if($res2 === false){
+					if($res2 === false || updateStock($barangs[$i]->id, ($barangs[$i]->jumlah* -1)) === false){
 						$summary = false;
 					}
 				}
@@ -73,8 +76,8 @@ if (isset ( $_POST ['code'] ) && isset ( $_POST ['jsondata'] ) && isset ( $_POST
 	}
 } else {
 	$class = new stdClass ();
-	$class->status = 2;
-	$class->desc = 'Token code is wrong!';
+	$class->status = 3;
+	$class->desc = 'Incomplete data!';
 	echo json_encode ( $class );
 	return;
 }

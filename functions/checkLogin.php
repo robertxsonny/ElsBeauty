@@ -17,6 +17,7 @@ if (isset ( $_POST ['username'] ) && isset ( $_POST ['password'] ) && isset ( $_
 		if ($res->num_rows > 0) {
 			while ( $item = $res->fetch_assoc () ) {
 				$class = new stdClass ();
+				$class->id = $item['id'];
 				$class->username = $item ['username'];
 				$class->name = $item ['name'];
 				$class->status = 0;

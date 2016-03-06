@@ -2,12 +2,12 @@
 $rootpath = $_SERVER ['DOCUMENT_ROOT'];
 $dbconn = $rootpath . '/functions/dbConnection.php';
 include ($dbconn);
-session_start();
+session_start ();
 if (isset ( $_SESSION ['username'] ) && isset ( $_SESSION ['md5'] ) && isset ( $_SESSION ['time'] ) && isset ( $_POST ['code'] )) {
 	$code = $_POST ['code'];
 	if ($code === '866e62bb-5745-4842-a02f-bdfd68132378') {
-		//check session time for 30 min
-		if($_SESSION['time'] + (30 * 60) < time()){
+		// check session time for 30 min
+		if ($_SESSION ['time'] + (30 * 60) < time ()) {
 			$class = new stdClass ();
 			$class->status = 1;
 			$class->desc = 'Session timed out!';
@@ -25,6 +25,7 @@ if (isset ( $_SESSION ['username'] ) && isset ( $_SESSION ['md5'] ) && isset ( $
 		if ($res->num_rows > 0) {
 			while ( $item = $res->fetch_assoc () ) {
 				$class = new stdClass ();
+				$class->id = $item ['id'];
 				$class->username = $item ['username'];
 				$class->name = $item ['name'];
 				$class->status = 0;
@@ -38,16 +39,14 @@ if (isset ( $_SESSION ['username'] ) && isset ( $_SESSION ['md5'] ) && isset ( $
 			echo json_encode ( $class );
 			return;
 		}
-	}
-	else{
+	} else {
 		$class = new stdClass ();
 		$class->status = 2;
 		$class->desc = 'Token code is wrong!';
 		echo json_encode ( $class );
 		return;
 	}
-}
-else{
+} else {
 	$class = new stdClass ();
 	$class->status = 3;
 	$class->desc = "You're not logged in!";

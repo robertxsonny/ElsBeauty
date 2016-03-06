@@ -21,6 +21,7 @@ function login(){
 			if (xmlhr.status == 200) {
 				var obj = JSON.parse(xmlhr.responseText);
 				if (obj.status == 0) {
+					localStorage.setItem('userid', obj.id);
 					$('.wait').hide();
 					$('.warning').hide();
 					$('.success').show();
